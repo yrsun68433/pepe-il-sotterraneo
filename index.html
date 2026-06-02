@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PEPE IL SOTTERRANEO</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Noto+Sans+TC:wght@300;400&family=DotGothic16&family=Bebas+Neue&family=Oswald:wght@700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ffffff;
+  --bg-list: #fafafa;
+  --bg-modal: #ffffff;
+  --surface: #f2f2f2;
+  --border: #e0e0e0;
+  --dim: #cccccc;
+  --text: #1a1a1a;
+  --text-dim: #888888;
+  --text-bright: #000000;
+  --green: #000000;
+  --green-dim: #e8e8e8;
+  --amber: #000000;
+  --red: #cc0000;
+  --blue: #555555;
+  --cursor-color: #000000;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  min-height: 100vh;
+  cursor: crosshair;
+}
+
+
+
+
+
+/* ── BOOT HEADER ── */
+#boot {
+  border-bottom: 2px solid var(--green);
+  padding: 2.2rem 2rem 1.4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 背景噪訊橫條 */
+#boot::before { display: none; }
+
+/* 左側工業鉚釘線 */
+#boot::after { display: none; }
+
+/* 主標題區 */
+.boot-title-block {
+  margin-bottom: 1.4rem;
+  padding-left: 0.5rem;
+  position: relative;
+}
+
+.boot-eyebrow {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.35em;
+  color: #888888;
+  text-transform: uppercase;
+  opacity: 0;
+  animation: fadeIn 0.2s 0.05s forwards;
+  margin-bottom: 0.3rem;
+}
+
+.boot-main-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem, 10vw, 6rem);
+  letter-spacing: 0.06em;
+  line-height: 0.9;
+  color: var(--text-bright);
+  position: relative;
+  display: inline-block;
+  opacity: 0;
+  animation: titleIn 0.3s 0.15s cubic-bezier(0.2,0,0,1) forwards;
+  /* 雙重錯位陰影：工業印刷感 */
+  text-shadow:
+    2px 2px 0 rgba(0,0,0,0.08);
+}
+
+/* 隨機閃爍的 glitch 效果 */
+.boot-main-title::before {
+  content: 'PEPE IL SOTTERRANEO';
+  position: absolute;
+  left: 3px; top: 0;
+  color: #555555;
+  opacity: 0;
+  clip-path: polygon(0 30%, 100% 30%, 100% 50%, 0 50%);
+  animation: glitch 6s 2s step-end infinite;
+}
+.boot-main-title::after {
+  content: 'PEPE IL SOTTERRANEO';
+  position: absolute;
+  left: -2px; top: 0;
+  color: #cc0000;
+  opacity: 0;
+  clip-path: polygon(0 60%, 100% 60%, 100% 75%, 0 75%);
+  animation: glitch 6s 2.08s step-end infinite;
+}
+
+@keyframes titleIn {
+  from { opacity:0; transform: translateX(-8px) skewX(-1deg); }
+  to   { opacity:1; transform: translateX(0) skewX(0); }
+}
+
+@keyframes glitch {
+  0%, 92%, 100% { opacity:0; transform: none; }
+  93%  { opacity:0.7; transform: translateX(4px); }
+  94%  { opacity:0; }
+  96%  { opacity:0.5; transform: translateX(-3px); }
+  97%  { opacity:0; }
+}
+
+.boot-subtitle {
+  font-family: 'Oswald', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.4em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  margin-top: 0.4rem;
+  opacity: 0;
+  animation: fadeIn 0.2s 0.4s forwards;
+  border-left: 2px solid #000000;
+  padding-left: 0.7rem;
+}
+
+/* 分隔橫條 */
+.boot-divider {
+  height: 1px;
+  background: linear-gradient(90deg, #000000 0%, transparent 70%);
+  margin: 1rem 0 1rem;
+  opacity: 0;
+  animation: fadeIn 0.2s 0.5s forwards;
+}
+
+/* 格言 */
+.boot-motto {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1rem, 3vw, 1.35rem);
+  letter-spacing: 0.12em;
+  color: #aaaaaa;
+  opacity: 0;
+  animation: fadeIn 0.4s 0.65s forwards;
+  padding-left: 0.5rem;
+}
+.boot-motto-tr {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.6em;
+  letter-spacing: 0.08em;
+  color: #bbbbbb;
+  vertical-align: middle;
+}
+
+/* boot log 那幾行維持原樣 */
+.boot-line {
+  opacity: 0;
+  animation: fadeIn 0.1s forwards;
+}
+.boot-line:nth-child(1)  { animation-delay: 0.6s; }
+.boot-line:nth-child(2)  { animation-delay: 0.8s; }
+.boot-line:nth-child(3)  { animation-delay: 1.0s; }
+.boot-line:nth-child(4)  { animation-delay: 1.2s; }
+
+@keyframes fadeIn { to { opacity:1; } }
+
+.sys  { color: var(--text-dim); }
+.ok   { color: var(--green); }
+.warn { color: var(--amber); }
+.hi   { color: var(--text-bright); font-size: 1.6em; letter-spacing: 0.15em; }
+.cursor {
+  display: inline-block;
+  width: 8px; height: 1em;
+  background: #000000;
+  vertical-align: middle;
+  animation: blink 1s step-end infinite;
+  margin-left: 2px;
+}
+@keyframes blink { 50% { opacity:0; } }
+
+/* ── FILTER / COMMAND LINE ── */
+#cmdline {
+  padding: 0.6rem 0;
+  border-bottom: 2px solid #000000;
+  position: sticky;
+  top: 0;
+  background: #ffffff;
+  border-top: 1px solid #e0e0e0;
+  z-index: 50;
+}
+
+.prompt { color: var(--green); user-select: none; }
+
+.cmd-btn {
+  background: none;
+  border: 1px solid #cccccc;
+  color: #888888;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px;
+  padding: 0.2rem 0.7rem;
+  cursor: pointer;
+  transition: all 0.1s;
+  letter-spacing: 0.05em;
+}
+.cmd-btn:hover {
+  border-color: #000000;
+  color: #000000;
+}
+.cmd-btn.active {
+  border-color: #000000;
+  color: #ffffff;
+  background: #000000;
+}
+
+
+
+/* ── ENTRY LIST ── */
+#entries {
+  padding: 1.5rem 2rem 3rem;
+  columns: 3 280px;
+  column-gap: 1.2rem;
+}
+
+.entry {
+  border: 1.5px solid #e0e0e0;
+  padding: 1.2rem 1.4rem 1rem;
+  display: block;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  position: relative;
+  opacity: 0;
+  animation: rowIn 0.2s forwards;
+  background: var(--bg-list);
+  break-inside: avoid;
+  margin-bottom: 1.2rem;
+}
+
+.entry:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  border-color: #aaaaaa;
+}
+.entry:nth-child(even) { background: var(--bg); }
+.entry:hover .entry-id { color: #000000; }
+.entry:hover::before {
+  content: '▶';
+  position: absolute;
+  left: 0.6rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--amber);
+  font-size: 10px;
+}
+
+@keyframes rowIn {
+  from { opacity:0; transform: translateX(-6px); }
+  to   { opacity:1; transform: translateX(0); }
+}
+
+.entry:nth-child(1)  { animation-delay: 0.05s; }
+.entry:nth-child(2)  { animation-delay: 0.1s; }
+.entry:nth-child(3)  { animation-delay: 0.15s; }
+.entry:nth-child(4)  { animation-delay: 0.2s; }
+
+.entry-id {
+  color: var(--text-dim);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  float: right;
+  margin-left: 0.5rem;
+}
+
+.entry-main {}
+
+.entry-title {
+  color: var(--text-bright);
+  font-size: 14px;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.15rem;
+}
+
+.entry-sub {
+  color: var(--text-dim);
+  font-size: 11px;
+  margin-bottom: 0.4rem;
+}
+
+.entry-tags {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.tag {
+  font-size: 10px;
+  padding: 0 0.4rem;
+  border: 1px solid;
+  letter-spacing: 0.08em;
+}
+.tag-recipe  { color: #000000; border-color: #000000; }
+.tag-know    { color: #555555; border-color: #aaaaaa; }
+.tag-tech    { color: #000000; border-color: #000000; background: #000000; color: #ffffff; }
+.tag-cuisine { color: #888888; border-color: #cccccc; }
+
+.entry-meta {
+  color: var(--text-dim);
+  font-size: 10px;
+  text-align: right;
+  margin-top: 0.8rem;
+  white-space: nowrap;
+  display: block;
+}
+
+/* ── MODAL / RECORD VIEW ── */
+#overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 200;
+  overflow-y: auto;
+  padding: 2rem;
+}
+#overlay.open { display: block; }
+
+#record {
+  max-width: 760px;
+  margin: 0 auto;
+  border: 2px solid #000000;
+  background: var(--bg-modal);
+  position: relative;
+  animation: open 0.15s ease;
+}
+@keyframes open {
+  from { opacity:0; transform: scale(0.98); }
+  to   { opacity:1; transform: scale(1); }
+}
+
+.rec-header {
+  background: #000000;
+  color: #ffffff;
+  padding: 0.6rem 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+}
+
+.rec-close {
+  background: none; border: none;
+  color: #ffffff;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 14px;
+  cursor: pointer; font-weight: bold;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+.rec-body { padding: 1.5rem 1.5rem 2rem; }
+
+.rec-title {
+  color: var(--text-bright);
+  font-size: 1.4em;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.2rem;
+}
+.rec-sub {
+  color: var(--text-dim);
+  font-size: 11px;
+  margin-bottom: 1rem;
+}
+.rec-tags { display:flex; gap:0.4rem; flex-wrap:wrap; margin-bottom: 1.5rem; }
+
+.rec-section {
+  margin-bottom: 1.8rem;
+}
+
+.rec-section-label {
+  color: #000000;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  border-bottom: 1px solid var(--green-dim);
+  padding-bottom: 0.3rem;
+  margin-bottom: 0.9rem;
+}
+
+.rec-text {
+  color: var(--text);
+  font-size: 12px;
+  line-height: 1.9;
+  white-space: pre-wrap;
+}
+
+/* ingredients table */
+.ing-group-label {
+  color: var(--amber);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  margin: 0.8rem 0 0.3rem;
+}
+.ing-group-label:first-child { margin-top: 0; }
+
+.ing-row {
+  display: flex;
+  gap: 1rem;
+  padding: 0.2rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+}
+.ing-row:hover { background: var(--surface); }
+.ing-name { color: var(--text); flex:1; }
+.ing-amt  { color: var(--text-dim); white-space: nowrap; }
+
+/* steps */
+.step-row {
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  gap: 0.8rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+  align-items: start;
+}
+.step-n {
+  color: #000000;
+  font-size: 16px;
+  line-height: 1.4;
+  text-align: right;
+}
+.step-body {}
+.step-title { color: var(--amber); font-size: 10px; letter-spacing: 0.1em; margin-bottom: 0.2rem; }
+.step-text  { color: var(--text); line-height: 1.8; }
+
+/* tip */
+.tip {
+  border: 1px solid #000000;
+  padding: 0.8rem 1rem;
+  margin-top: 0.5rem;
+  font-size: 12px;
+  color: var(--text);
+  line-height: 1.8;
+  position: relative;
+}
+.tip::before {
+  content: '// NOTE';
+  color: #000000; opacity: 0.6;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+/* knowledge */
+.know-item {
+  padding: 0.8rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.know-key {
+  color: #000000; opacity: 1;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.3rem;
+}
+.know-val {
+  color: var(--text);
+  font-size: 12px;
+  line-height: 1.9;
+  white-space: pre-wrap;
+}
+
+/* ── FOOTER ── */
+footer {
+  border-top: 2px solid #000000;
+  padding: 1rem 2rem;
+  color: #888888;
+  background: #ffffff;
+  font-size: 11px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* hide when filtered out */
+.entry.hidden { display: none; }
+
+/* ── MOBILE RWD (≤480px) ── */
+@media (max-width: 480px) {
+
+  /* header 縮排 */
+  #boot {
+    padding: 1.5rem 1.2rem 1rem;
+  }
+  .boot-main-title {
+    font-size: clamp(2.2rem, 12vw, 3.2rem);
+  }
+  .boot-subtitle {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+  }
+  .boot-motto {
+    font-size: 0.95rem;
+  }
+  .boot-motto-tr {
+    display: block;
+    margin-top: 0.15rem;
+    font-size: 0.7em;
+  }
+
+  /* filter bar 橫向滾動，不換行 */
+  #cmdline {
+    padding: 0.6rem 1rem;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: 0.5rem;
+    scrollbar-width: none;
+  }
+  #cmdline::-webkit-scrollbar { display: none; }
+  
+  
+  .cmd-btn {
+    flex-shrink: 0;
+    font-size: 11px;
+    padding: 0.25rem 0.65rem;
+  }
+
+  /* 手機單欄 */
+  #entries {
+    padding: 1rem;
+    columns: 1;
+  }
+  .entry { margin-bottom: 0.9rem; }
+  .entry-title { font-size: 13px; }
+  .entry-sub   { font-size: 10px; }
+
+  /* modal 全螢幕感 */
+  #overlay { padding: 0.8rem; }
+  #record { border-radius: 0; }
+  .rec-body { padding: 1.2rem 1.2rem 1.8rem; }
+  .rec-title { font-size: 1.15em; }
+
+  /* ingredient grid 單欄 */
+  .ingredient-grid,
+  .ing-row { font-size: 12px; }
+
+  /* step */
+  .step-row { gap: 0.6rem; }
+  .step-n { font-size: 13px; width: 1.4rem; }
+
+  /* footer */
+  footer { padding: 0.8rem 1.2rem; font-size: 10px; }
+}
+
+/* 知識類卡片稍微寬一點（靠 span 模擬） */
+.entry[data-tags*="節氣"],
+.entry[data-tags*="食材知識"] {
+  border-left: 3px solid #000000;
+}
+.entry[data-tags*="料理技巧"] {
+  border-top: 3px solid #000000;
+}
+.entry[data-tags*="食譜"] {
+  border-color: #d0d0d0;
+}
+
+/* ── FILTER GROUPS ── */
+#cmdline {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-wrap: wrap;
+  row-gap: 0.5rem;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0 1rem;
+  flex-wrap: wrap;
+}
+.filter-group:first-child { padding-left: 2rem; }
+.filter-group:last-child  { padding-right: 2rem; }
+
+.filter-group-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: #bbbbbb;
+  text-transform: uppercase;
+  margin-right: 0.2rem;
+  white-space: nowrap;
+}
+
+.filter-divider {
+  width: 1px;
+  height: 1.4rem;
+  background: #e0e0e0;
+  flex-shrink: 0;
+}
+
+@media (max-width: 480px) {
+  .filter-group { padding: 0 0.5rem; }
+  .filter-group:first-child { padding-left: 1rem; }
+  .filter-divider { display: none; }
+  .filter-group-label { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div id="boot">
+  <div class="boot-title-block">
+    <div class="boot-eyebrow">archivio culinario personale</div>
+    <div class="boot-main-title">PEPE IL SOTTERRANEO</div>
+    <div class="boot-subtitle">sistema di archiviazione ricette · v0.1</div>
+  </div>
+  <div class="boot-divider"></div>
+  <div class="boot-motto">Du bist was du isst.<span class="boot-motto-tr"> — 你吃什麼，就成為什麼。</span></div>
+</div>
+
+<div id="cmdline">
+  <div class="filter-group">
+    <span class="filter-group-label">全部</span>
+    <button class="cmd-btn active" data-filter="all">ALL</button>
+  </div>
+  <div class="filter-divider"></div>
+  <div class="filter-group">
+    <span class="filter-group-label">知識</span>
+    <button class="cmd-btn" data-filter="節氣">節氣</button>
+    <button class="cmd-btn" data-filter="食材知識">食材知識</button>
+    <button class="cmd-btn" data-filter="料理技巧">料理技巧</button>
+  </div>
+  <div class="filter-divider"></div>
+  <div class="filter-group">
+    <span class="filter-group-label">基礎做法</span>
+    <button class="cmd-btn" data-filter="醬料">醬料</button>
+    <button class="cmd-btn" data-filter="涼拌">涼拌</button>
+    <button class="cmd-btn" data-filter="熱炒">熱炒</button>
+  </div>
+  <div class="filter-divider"></div>
+  <div class="filter-group">
+    <span class="filter-group-label">料理風格</span>
+    <button class="cmd-btn" data-filter="台式">台式</button>
+    <button class="cmd-btn" data-filter="東南亞">東南亞</button>
+    <button class="cmd-btn" data-filter="印度">印度</button>
+    <button class="cmd-btn" data-filter="中東">中東</button>
+    <button class="cmd-btn" data-filter="日式">日式</button>
+  </div>
+</div>
+
+<div id="entries"></div>
+
+<footer>
+  <span>PEPE IL SOTTERRANEO — uso personale</span>
+  <span id="footer-date"></span>
+</footer>
+
+<div id="overlay">
+  <div id="record">
+    <div class="rec-header">
+      <span id="rec-header-text">RECORD VIEW</span>
+      <button class="rec-close" id="closeBtn">[ESC] CLOSE</button>
+    </div>
+    <div class="rec-body" id="recBody"></div>
+  </div>
+</div>
+
+<script>
+const DB = [
+  {
+    id: "001",
+    title: "素食南瓜鷹嘴豆 Gulai",
+    sub: "印尼 · 馬來西亞風格香料燉煮",
+    tags: ["食譜","東南亞","素食"],
+    date: "2026.06",
+    content: {
+      type: "recipe",
+      intro: "Gulai 是印尼與馬來西亞常見的香料燉煮料理。椰香濃郁，石栗（Kemiri）提供奶油般的圓潤感——明明沒有乳製品，口感卻格外柔和，這是許多印尼咖哩令人著迷的原因。",
+      ingredients: [
+        { group: "主體食材", items: [
+          ["南瓜","300g"],["鷹嘴豆","1罐 / 煮熟約250g"],["洋蔥","1顆"]
+        ]},
+        { group: "香料糊", items: [
+          ["Kemiri 石栗","3～4顆"],["蒜頭","4瓣"],["薑","約3cm"],["紅蔥頭","2～3顆"]
+        ]},
+        { group: "乾香料", items: [
+          ["薑黃粉","1 tsp"],["孜然粉","1 tsp"],["芫荽粉","2 tsp"],["辣椒粉","適量（可省）"]
+        ]},
+        { group: "液體 / 調味", items: [
+          ["椰子鮮奶油","150ml"],["水","300ml"],["鹽 · 黑胡椒","適量"],["香菜","適量（可選）"]
+        ]}
+      ],
+      steps: [
+        { t:"處理 Kemiri", b:"Kemiri＋蒜頭放入乾鍋小火烘烤 3～5 分鐘。聞到堅果香氣離火。" },
+        { t:"製作香料糊", b:"烘烤過的 Kemiri、蒜頭、薑、紅蔥頭打成泥。無調理機則切碎後搗成泥狀。" },
+        { t:"炒香料", b:"鍋中加油，香料糊炒香後加入所有乾香料，小火炒約 1 分鐘至聞到咖哩香。" },
+        { t:"燉煮", b:"加入洋蔥、南瓜、鷹嘴豆翻炒均勻，倒入椰子鮮奶油和水，小火燉 20 分鐘至南瓜軟透。" },
+        { t:"調味起鍋", b:"鹽、黑胡椒調整。有香菜的話起鍋前大量撒入。" }
+      ],
+      tip: "Kemiri 讓醬汁產生類似奶油的圓潤感，這是印尼料理的核心秘密之一。"
+    }
+  },
+  {
+    id: "002",
+    title: "椰香鷹嘴豆咖哩",
+    sub: "Chana Masala 變體 — 新手友善版",
+    tags: ["食譜","印度","素食"],
+    date: "2026.06",
+    content: {
+      type: "recipe",
+      intro: "第一次做印度咖哩的入門選擇。椰子鮮奶油不只增加風味，下鍋後溫度立刻降低，大幅降低香料炒焦的風險。",
+      ingredients: [
+        { group: "主體食材", items: [
+          ["洋蔥","1顆"],["蒜頭","4～6瓣"],["薑","一小塊"],
+          ["番茄","2顆（或罐頭番茄）"],["鷹嘴豆","1罐"],["椰子鮮奶油","100～150ml"]
+        ]},
+        { group: "香料", items: [
+          ["孜然粉","適量"],["薑黃粉","適量"],["芫荽粉","適量"],
+          ["辣椒粉","適量（可省）"],["Garam Masala","適量"]
+        ]}
+      ],
+      steps: [
+        { t:"炒洋蔥", b:"油熱後下洋蔥，炒至金黃透明。" },
+        { t:"⚠ 關鍵步驟", b:"洋蔥炒好 → 轉最小火 → 香料粉下鍋 → 數到 10 → 立刻加番茄。這樣成功率極高。" },
+        { t:"加薑蒜", b:"加入薑末、蒜末，翻炒至香氣釋出。" },
+        { t:"燉煮", b:"加入鷹嘴豆和椰子鮮奶油，小火燉 15～20 分鐘讓味道融合。" },
+        { t:"收尾", b:"加入 Garam Masala，試味道，鹽調整。" }
+      ],
+      tip: "香料炒焦後苦味進入油脂，整鍋幾乎救不回來。第一次做不要追求「把香料炒很久」。"
+    }
+  },
+  {
+    id: "003",
+    title: "日本芥末譜系",
+    sub: "Karashi · 粗粒 · Dijon 三種分類",
+    tags: ["食材知識","日式"],
+    date: "2026.06",
+    content: {
+      type: "knowledge",
+      items: [
+        { k:"KARASHI（辛子）",
+          v:"顏色偏黃，質地滑順。辣度明顯，幾乎無酸味，風味直接強烈。\n→ 配對：關東煮、納豆、豬排三明治" },
+        { k:"WHOLE GRAIN MUSTARD（粗粒）",
+          v:"保留完整或部分芥菜籽顆粒，帶明顯醋香，辣度低。\nKewpie 版本：酸黃瓜醃漬液風味，酸度足且有層次。\n→ 配對：香腸、火腿、烤馬鈴薯、漢堡排" },
+        { k:"DIJON",
+          v:"質地最細滑，酸香濃郁集中。日本超市常見 Maille、Edmond Fallot 等法國品牌。\n→ 配對：法式料理" },
+        { k:"搭配對照表",
+          v:"關東煮    →  Karashi\n德國香腸  →  粗粒芥末\n法式料理  →  Dijon" }
+      ]
+    }
+  },
+  {
+    id: "005",
+    title: "羅望子醬 / 羅望子水",
+    sub: "幾乎所有羅望子料理的起點",
+    tags: ["料理技巧","東南亞"],
+    date: "2026.06",
+    content: {
+      type: "knowledge",
+      items: [
+        { k:"基本做法",
+          v:"羅望子果肉 20–30g\n溫水 150–200ml\n浸泡 10–15 分鐘，用手捏開果肉\n過濾掉籽與纖維 → 得到羅望子水（酸汁）\n\n📌 可冷藏 3–5 天" },
+        { k:"1. 羅望子酸辣湯（泰式 / 南洋）",
+          v:"適合：湯麵、冬蔭功、酸辣湯\n蒜、辣椒爆香 → 加水或高湯 → 加羅望子水＋魚露或醬油＋香茅、檸檬葉\n最後調酸甜鹹辣平衡\n\n→ 羅望子的酸是「圓潤、不刺」" },
+        { k:"2. 羅望子燉肉 / 燒雞",
+          v:"適合：雞肉、排骨、牛腩\n簡易比例：羅望子水 2–3 tbsp ＋ 醬油 1 tbsp ＋ 黑糖 1–2 tsp ＋ 蒜、薑\n\n→ 酸甜會讓肉更嫩、解膩" },
+        { k:"3. 羅望子涼拌醬",
+          v:"羅望子水＋魚露或醬油＋棕櫚糖 / 黑糖＋辣椒\n拌：青木瓜、小黃瓜、燙秋葵、烤茄子" },
+        { k:"⚠ 使用注意",
+          v:"✕ 不要一次加太多（會苦）\n✓ 最後調味時再加\n✓ 比檸檬更耐煮，但還是別太早放\n✓ 酸味不足可補檸檬，但不要反過來" }
+      ]
+    }
+  },
+  {
+    id: "006",
+    title: "黎巴嫩酸奶餃 Shish Barak",
+    sub: "小帽子形餃子煮入發酵酸奶醬",
+    tags: ["食譜","中東"],
+    date: "2026.06",
+    content: {
+      type: "recipe",
+      intro: "Shish Barak 是黎巴嫩經典料理——烤過的小帽子形餃子，放入濃滑蒜味酸奶醬中慢煮，最後淋上薄荷奶油油。重點不是酸，而是滑、香、平衡。",
+      ingredients: [
+        { group: "餃子皮", items: [
+          ["中筋麵粉","200g"],["水","約110ml"],["鹽","一小撮"]
+        ]},
+        { group: "羊肉餡", items: [
+          ["羊絞肉","250g"],["洋蔥（極細末）","1/4顆"],
+          ["肉桂粉","1/4 tsp"],["多香果粉 allspice","1/4 tsp"],
+          ["黑胡椒 + 鹽","適量"],["橄欖油","1 tsp"]
+        ]},
+        { group: "素食替代餡", items: [
+          ["乾香菇（泡軟細切）","3朵"],["核桃（切碎）","30g"],
+          ["或：煮熟紅扁豆","60g"],["洋蔥（極細末）","1/4顆"],
+          ["肉桂粉 + 多香果粉","各1/4 tsp"]
+        ]},
+        { group: "酸奶醬（靈魂）", items: [
+          ["無糖濃優格 / 發酵酸奶","600g"],["蒜末","3–4瓣"],
+          ["玉米粉","2 tsp"],["水","100ml"],["鹽","適量"]
+        ]},
+        { group: "提香", items: [
+          ["奶油或橄欖油","1 tbsp"],["乾薄荷或新鮮薄荷碎","適量"],["松子","適量（可選）"]
+        ]}
+      ],
+      steps: [
+        { t:"做餃子皮", b:"麵粉＋鹽拌勻，慢慢加水揉成光滑麵糰，蓋起來醒 30 分鐘。" },
+        { t:"做餡料", b:"羊肉版：羊絞肉＋洋蔥末＋香料＋鹽＋橄欖油，攪拌至黏性出來（洋蔥一定要極細，否則出水）。\n素食版：熱鍋炒洋蔥至透明，加香菇炒乾水分，加核桃（或扁豆）＋香料＋鹽，放涼備用。" },
+        { t:"包餃子（小帽子形）", b:"麵皮擀薄（比水餃薄），切直徑 5cm 小圓片，中間放一點餡，對折捏邊，再把兩角捏起來。\n📌 餡一定要少！" },
+        { t:"⚠ 烤或乾煎（關鍵步驟）", b:"180°C 烤箱 12–15 分鐘，或平底鍋小火乾煎至表面乾、微金黃。\n→ 不用熟透，只要定型。這步可避免後來煮爛。" },
+        { t:"煮酸奶醬（不能急）", b:"酸奶＋水＋玉米粉拌勻，中小火不停攪拌，加蒜末＋鹽，煮到濃滑、冒小泡（絕對不能大滾）。\n📌 一定要攪，不然會分離。" },
+        { t:"合體", b:"把餃子放入酸奶醬，小火煮 8–10 分鐘，輕輕翻動，不要大力攪。" },
+        { t:"提香油收尾", b:"奶油或橄欖油加熱，放薄荷（＋松子），淋在上面。" }
+      ],
+      tip: "四大失敗點：\n✕ 酸奶直接大火煮 → 一定分離\n✕ 不加玉米粉 → 很容易失敗\n✕ 餃子沒先烤 → 湯變糊\n✕ 酸味不夠加檸檬 → 不道地\n\nShish Barak 是溫柔的酸奶料理，重點不是酸，而是滑、香、平衡。"
+    }
+  },
+  {
+    id: "007",
+    title: "Tzatziki 酸奶小黃瓜醬",
+    sub: "希臘式沾醬，關鍵在去水",
+    tags: ["食譜","中東","醬料"],
+    date: "2026.06",
+    content: {
+      type: "recipe",
+      intro: "成功的 Tzatziki 關鍵全在去水——小黃瓜含水量極高，沒處理好醬會變成湯。去籽、鹽漬、布擠三步缺一不可。",
+      ingredients: [
+        { group: "主要食材", items: [
+          ["小黃瓜","1條"],["無糖濃優格","適量"],["蒜末","適量"],
+          ["橄欖油","少許（最後淋）"],["鹽","適量（含醃漬用）"]
+        ]}
+      ],
+      steps: [
+        { t:"去籽", b:"小黃瓜對切，用小湯匙把籽刮掉（籽是水分最多的地方）。" },
+        { t:"刨絲鹽漬", b:"刨成細絲，加鹽搓一搓，放在濾網上冰箱靜置 1 小時以上，濾掉多餘水分。" },
+        { t:"擠乾", b:"用乾淨的布包起來用手擠出剩下的水分。（無布的話，直接用湯匙在濾網上壓也可以）" },
+        { t:"混合調味", b:"取小碗混合橄欖油以外的所有材料，攪拌均勻，依個人口味最後調味。" },
+        { t:"收尾", b:"最後淋上少許橄欖油，略裝飾即完成。" }
+      ],
+      tip: "去水不夠徹底是最常見的失敗原因。寧可多擠一次。"
+    }
+  },
+  {
+    id: "008",
+    title: "涼拌四式",
+    sub: "小黃瓜 · 香菜 · 醬雞蛋 · 白蘿蔔",
+    tags: ["食譜","台式","涼拌"],
+    date: "2026.06",
+    content: {
+      type: "knowledge",
+      items: [
+        { k:"涼拌小黃瓜",
+          v:"刀背拍裂切段 → 加鹽抓醃靜置 30 分鐘 → 倒掉出水，用開水沖洗瀝乾\n加：醋、鹽、砂糖、香油、辣椒，抓醃後冷藏至少 1 小時" },
+        { k:"涼拌香菜",
+          v:"沖洗浸泡去泥沙，控乾水分\n醬汁：辣椒油＋醬油＋香油＋烏醋＋砂糖＋鹽＋高湯粉拌勻\n分批抓入香菜拌勻，醃漬 10 分鐘即可" },
+        { k:"醬雞蛋",
+          v:"雞蛋煮至 5 分熟或 8 分熟（蛋黃液態或濕潤），剝殼備用\n醬汁：洋蔥末＋青紅辣椒末＋香菜末＋生抽＋老抽＋辣椒麵＋白芝麻＋香油＋味醂＋砂糖＋冷水\n倒入保鮮盒冷藏醃漬一夜（期間翻動幾次）" },
+        { k:"糖醋白蘿蔔",
+          v:"白蘿蔔削皮切 1cm 塊，加鹽抓醃靜置 1 小時 → 苦水倒掉，沖冰開水\n糖醋汁：水 150g ＋ 冰糖 180g 小火煮融 → 放涼後加白醋 150g\n蘿蔔入糖醋汁，可加辣椒圈，冷藏醃漬" }
+      ]
+    }
+  },
+  {
+    id: "009",
+    title: "醃漬二式：醋薑 + 台式泡菜",
+    sub: "常備醃漬，去油解膩",
+    tags: ["食譜","台式","涼拌"],
+    date: "2026.06",
+    content: {
+      type: "knowledge",
+      items: [
+        { k:"醋薑",
+          v:"嫩薑洗淨擦乾切薄片 → 15g 鹽抓勻靜置 2–3 小時\n糖醋汁：水 150cc ＋ 冰糖 150g 小火融化 → 加米醋 150cc，放涼備用\n薑片冷開水洗去鹽分，瀝乾後再浸冷開水冰箱放 3 小時\n擰乾水分，裝玻璃容器注入糖醋汁，冷藏保存" },
+        { k:"台式泡菜",
+          v:"高麗菜 1顆（約2斤）、紅蘿蔔半條、鹽半碗、蒜頭 5顆、辣椒 2條、細砂糖半碗、白醋 200cc、花椒少許\n高麗菜加鹽醃 30 分鐘 → 冷開水過水去鹽，擠乾\n花椒乾鍋炒香，蒜辣椒切末，紅蘿蔔切絲\n全部拌勻試味道（依喜好調酸甜），裝保鮮盒隔天更好吃" }
+      ]
+    }
+  },
+  {
+    id: "010",
+    title: "麻油薑系列：高麗菜飯 + 煎麵線",
+    sub: "台式麻油薑底，兩種澱粉應用",
+    tags: ["食譜","台式"],
+    date: "2026.06",
+    content: {
+      type: "knowledge",
+      items: [
+        { k:"麻油高麗菜飯",
+          v:"起鍋放麻油薑末爆香 → 加香菇炒至金黃 → 放高麗菜＋紅蘿蔔絲續炒\n高麗菜半軟後加調味料＋白米，略炒後加溫水 2 杯，中小火邊翻炒邊收湯汁\n米粒飽滿後熄火，加米酒半杯＋溫水 1 杯拌勻，入電鍋蒸熟（外鍋 1.5 杯水）" },
+        { k:"麻油薑煎麵線",
+          v:"材料：麻油 3 匙、薑數片、麵線 1 小把、雞蛋 1 個\n麵線燙熟瀝乾，麻油 1 匙拌入麵線備用\n平底鍋加 2 匙麻油，薑片煎香，放入麵線壓成圓形，煎約 3 分鐘\n雞蛋淋在麵線上，續煎 2 分鐘後翻面煎至金黃" }
+      ]
+    }
+  },
+  {
+    id: "011",
+    title: "絲瓜麵線",
+    sub: "薑絲清煮，清爽夏季版本",
+    tags: ["食譜","台式"],
+    date: "2026.06",
+    content: {
+      type: "recipe",
+      intro: "清甜不油膩的夏季麵線。關鍵在麵線先冰鎮洗去黏液，以及讓絲瓜在熱湯中自然釋出甜味。",
+      ingredients: [
+        { group: "食材", items: [
+          ["麵線","1人份"],["絲瓜","適量"],["薑絲","12g（1人份）"],
+          ["橄欖油","多一點"],["白酒","2大匙"],["白胡椒","適量"],
+          ["熱水","300cc（95°C 以上）"],["鹽","適量（無蛤蠣時）"]
+        ]}
+      ],
+      steps: [
+        { t:"處理麵線", b:"水滾後放麵線煮 1.5 分半，撈起放進冰水冰鎮，用雙手洗麵（去黏液），瀝乾備用。" },
+        { t:"煸薑", b:"橄欖油多一點，放入薑絲中火煸香。" },
+        { t:"煮絲瓜", b:"加入絲瓜，不用翻攪。倒入 95°C 以上熱水 300cc，加白酒 2 大匙＋白胡椒，煮幾分鐘。" },
+        { t:"調味", b:"無蛤蠣時才需要放鹽調味（蛤蠣本身有鹹度）。" },
+        { t:"合體", b:"放入麵線稍微燙一下即可盛碗。" }
+      ],
+      tip: "熱水一定要夠熱（95°C 以上），倒入後絲瓜才能快速出甜味。"
+    }
+  },
+  {
+    id: "012",
+    title: "熱炒三式",
+    sub: "宮保皮蛋米血糕 · 三杯茄子 · 青椒豆腐",
+    tags: ["食譜","台式","熱炒"],
+    date: "2026.06",
+    content: {
+      type: "knowledge",
+      items: [
+        { k:"宮保皮蛋米血糕",
+          v:"食材：米血 300g、皮蛋 3顆、花生 50g、乾辣椒 10g、蒜頭 20g、蔥段 20g\n調味：蠔油 2大匙＋番茄醬 1大匙＋米酒 2大匙\n皮蛋蒸至蛋黃凝固，剝殼切四瓣，裹澱粉油煎至金黃備用\n炒鍋炒香乾辣椒＋蒜頭 → 放米血＋調味料 → 放皮蛋翻炒均勻\n小火燜煮至米血軟化，拌入蔥段＋花生" },
+        { k:"三杯茄子",
+          v:"食材：茄子 300g、蒜頭＋老薑各 30g、辣椒 1條、香油 1大匙\n醬汁：醬油 1.5大匙＋烏醋 1小匙＋番茄醬 1小匙＋二砂 1大匙＋米酒 1大匙＋水 3大匙\n高溫炸茄子備用 → 乾鍋炒薑片加香油 → 加蒜頭煸 4 分鐘\n倒入醬汁，全程大火加入茄子＋辣椒\n📌 最後再放麻油，比較不容易苦" },
+        { k:"青椒豆腐",
+          v:"豆腐切塊煎至每面金黃備用\n青椒 3個＋老薑 20g＋辣椒＋檸檬汁用調理機打成泥\n泥料倒入鍋子乾煎小火，煮到稠稠泥狀\n加水 300g＋鹽 1小匙＋糖 2大匙＋胡椒粉 1小匙\n加蓮藕粉水勾芡，放入豆腐翻勻" }
+      ]
+    }
+  },
+  {
+    id: "013",
+    title: "泰式咖哩膏操作邏輯",
+    sub: "咖哩膏 vs 咖哩粉的根本差異",
+    tags: ["料理技巧","東南亞"],
+    date: "2026.06",
+    content: {
+      type: "knowledge",
+      items: [
+        { k:"咖哩膏 vs 咖哩粉",
+          v:"咖哩膏（Paste）：濕糊狀，香氣濃烈直接，必須炒香，是泰式咖哩的主體\n咖哩粉（Powder）：乾粉狀，香氣溫和漸進，建議炒但可彈性，用於印度咖哩或乾咖哩\n\n泰式咖哩膏 → 炒香步驟是靈魂，不能省" },
+        { k:"炒咖哩膏的關鍵",
+          v:"鍋子中小火熱 5–10 秒（不要冒煙），加一小匙油\n立刻下咖哩醬 → 用木匙慢慢推炒\n看到它變得油亮、聞到香氣炸開，約 30 秒–1 分鐘，不焦即可\n→「就像在對香料說：好，我們開始工作了。」" },
+        { k:"泰式咖哩基本流程",
+          v:"炒咖哩醬爆香 → 倒入椰奶 1罐（約400ml）攪拌均勻至濃稠冒泡\n加蔬菜／豆腐，蓋鍋悶煮 10–15 分鐘（硬的先、軟的後）\n調味：醬油 / 魚露＋糖＋檸檬汁（試味道）\n最後放香料葉燜一下" }
+      ]
+    }
+  },
+  {
+    id: "014",
+    title: "碗粿",
+    sub: "在來米粉，電鍋版",
+    tags: ["食譜","台式"],
+    date: "2026.06",
+    content: {
+      type: "recipe",
+      intro: "用在來米粉做的台式小點，質地軟Q。搭配任何便當菜都適合。",
+      ingredients: [
+        { group: "食材", items: [
+          ["在來米粉","150g"],["水","600cc（分兩次使用）"],["便當菜","適量"]
+        ]}
+      ],
+      steps: [
+        { t:"調粉漿", b:"在來米粉 150g 加水 300cc，攪拌均勻成粉漿。" },
+        { t:"燙熟粉漿", b:"另取 300cc 水煮沸，倒入粉漿中，邊倒邊攪拌。" },
+        { t:"炒至濃稠", b:"移至瓦斯爐上小火攪拌至濃稠狀。" },
+        { t:"分裝蒸熟", b:"分裝入碗至 7–8 分滿，放便當菜，入電鍋蒸熟（外鍋 350cc 水，跳起後再燜 30 分鐘）。" },
+        { t:"脫模", b:"放涼後倒出碗外盛盤，加上配料完成。" }
+      ],
+      tip: "一定要等放涼才能順利脫模，太熱會黏。"
+    }
+  },
+  {
+    id: "015",
+    title: "夏至飲食筆記",
+    sub: "節氣 · 當令食材 · 中醫食療觀點",
+    tags: ["食材知識","節氣"],
+    date: "2026.06",
+    content: {
+      type: "knowledge",
+      items: [
+        { k:"夏至是什麼",
+          v:"台北時間：日出 5:03 / 日落 18:46，日照 13h 41m，一年中最長\n夏至後進入「三伏天」，陽氣極盛後開始潛藏\n中醫：夏至後人體陰虛火旺，易虛弱、失眠、口渴、便秘\n→ 從夏至開始一定要睡午覺（午覺以陽養陰）" },
+        { k:"當令推薦食材",
+          v:"芋頭、玉米、香菇、竹筍、蘆筍：去暑時蔬\n鳳梨：解暑、消暑、止渴、開胃（搭配當季最好）" },
+        { k:"蓮子 Lotus Seed",
+          v:"全穀雜糧類，富含鈣、鎂、鐵，天氣燥熱時有穩定情緒、抗焦躁的效果\n中醫：養心安神、健脾補虛、補腎固精\n搭配：銀耳 → 養肺生津 / 桂圓 → 養心清肺 / 紅棗 → 益氣健脾\n挑選：果肉結實、不黏滑、有清香；乾燥蓮子使用前需浸泡過夜" },
+        { k:"小米 Millet",
+          v:"容易消化，不含麩質，有安神助眠效果\n中醫：養脾腎、除濕強筋骨\n料理：小米粥、小米煎餅、釀小米酒（溫補氣血）\n挑選：淡黃色（過黃可能添加色素）\n注意：虛火體質、感冒期間忌口" },
+        { k:"綠豆",
+          v:"性甘寒，入心經和胃經\n夏天體熱、小便黃赤時效果最佳，可加蜂蜜\n注意：寒性，體質虛弱者不宜多食" },
+        { k:"苦瓜",
+          v:"苦瓜茶：苦瓜去頭放入茶葉封口，風乾後冷泡飲用（每次 5–6g）\n苦瓜炒鹹蛋：苦瓜半斤切片，炒半熟加煮熟鹹鴨蛋拌勻\n注意：脾胃虛寒者不宜多生食，否則易胃脘不適、腹脹腹瀉" }
+      ]
+    }
+  },
+  {
+    id: "004",
+    title: "印度咖哩：香料操作邏輯",
+    sub: "炒香料的順序、時機與判斷方法",
+    tags: ["料理技巧","印度"],
+    date: "2026.06",
+    content: {
+      type: "knowledge",
+      items: [
+        { k:"基本流程",
+          v:"熱油 → 整粒香料 → 洋蔥 → 薑蒜 → 香料粉（小火）→ 番茄 → 主食材 → 燉煮" },
+        { k:"整粒 vs 粉狀",
+          v:"整粒香料（孜然籽/芥末籽/茴香籽/小荳蔻）直接下熱油，10～30 秒聞到香味即可。\n粉狀香料要等洋蔥炒好後、轉小火才加，避免立刻焦掉。" },
+        { k:"判斷炒焦的方法",
+          v:"正常：溫暖、堅果香、木質香、柑橘香\n焦掉：苦味、燒焦味、像中藥燒過頭\n\n⚠ 一旦焦掉，苦味已進入油脂，整鍋幾乎無法補救。" },
+        { k:"南印度 · 斯里蘭卡做法",
+          v:"油 → 芥末籽 → 咖哩葉 → 洋蔥 → 香料 → 番茄 → 椰奶\n椰子鮮奶油下鍋後溫度降低，不容易炒焦，適合新手。" }
+      ]
+    }
+  }
+];
+
+// tag styling
+function tagClass(t) {
+  if (["食譜"].includes(t)) return "tag-recipe";
+  if (["食材知識"].includes(t)) return "tag-know";
+  if (["料理技巧"].includes(t)) return "tag-tech";
+  return "tag-cuisine";
+}
+function tagHTML(t) {
+  return `<span class="tag ${tagClass(t)}">${t}</span>`;
+}
+
+// render list
+function render(filter) {
+  const container = document.getElementById('entries');
+  const knowledgeTags = ["節氣","食材知識","料理技巧"];
+  const isKnowledge = r => r.tags.some(t => knowledgeTags.includes(t));
+
+  let filtered = DB.filter(r => filter === 'all' || r.tags.includes(filter));
+  // 知識類排前面
+  filtered = [
+    ...filtered.filter(r => isKnowledge(r)),
+    ...filtered.filter(r => !isKnowledge(r))
+  ];
+
+  let html = '';
+  let count = filtered.length;
+  filtered.forEach((r, i) => {
+    html += `
+    <div class="entry" data-id="${r.id}" data-tags="${r.tags.join(',')}" style="animation-delay:${i*0.04}s">
+      <div class="entry-id">${r.id}</div>
+      <div class="entry-main">
+        <div class="entry-title">${r.title}</div>
+        <div class="entry-sub">${r.sub}</div>
+        <div class="entry-tags">${r.tags.map(tagHTML).join('')}</div>
+      </div>
+      <div class="entry-meta">${r.date}</div>
+    </div>`;
+  });
+  if (count === 0) html = `<div style="padding:3rem 2rem;color:var(--text-dim);">// nessun risultato per: ${filter}</div>`;
+  container.innerHTML = html;
+
+  container.querySelectorAll('.entry').forEach(el => {
+    el.addEventListener('click', () => openRecord(el.dataset.id));
+  });
+}
+
+// open record
+function openRecord(id) {
+  const r = DB.find(x => x.id === id);
+  const c = r.content;
+  document.getElementById('rec-header-text').textContent = `RECORD ${r.id} — ${r.title}`;
+
+  let html = `
+    <div class="rec-tags">${r.tags.map(tagHTML).join('')}</div>
+    <div class="rec-title">${r.title}</div>
+    <div class="rec-sub">${r.sub}</div>
+  `;
+
+  if (c.type === 'recipe') {
+    html += `<div class="rec-section">
+      <div class="rec-section-label">// DESCRIPTION</div>
+      <div class="rec-text">${c.intro}</div>
+    </div>`;
+
+    html += `<div class="rec-section"><div class="rec-section-label">// INGREDIENTS</div>`;
+    c.ingredients.forEach(g => {
+      html += `<div class="ing-group-label">${g.group}</div>`;
+      g.items.forEach(([n,a]) => {
+        html += `<div class="ing-row"><span class="ing-name">${n}</span><span class="ing-amt">${a}</span></div>`;
+      });
+    });
+    html += `</div>`;
+
+    html += `<div class="rec-section"><div class="rec-section-label">// STEPS</div>`;
+    c.steps.forEach((s,i) => {
+      html += `<div class="step-row">
+        <div class="step-n">${String(i+1).padStart(2,'0')}</div>
+        <div class="step-body">
+          <div class="step-title">${s.t}</div>
+          <div class="step-text">${s.b}</div>
+        </div>
+      </div>`;
+    });
+    html += `</div>`;
+
+    if (c.tip) html += `<div class="rec-section"><div class="tip">${c.tip}</div></div>`;
+
+  } else {
+    html += `<div class="rec-section"><div class="rec-section-label">// NOTES</div>`;
+    c.items.forEach(item => {
+      html += `<div class="know-item">
+        <div class="know-key">${item.k}</div>
+        <div class="know-val">${item.v}</div>
+      </div>`;
+    });
+    html += `</div>`;
+  }
+
+  document.getElementById('recBody').innerHTML = html;
+  document.getElementById('overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeRecord() {
+  document.getElementById('overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('closeBtn').addEventListener('click', closeRecord);
+document.getElementById('overlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('overlay')) closeRecord();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeRecord(); });
+
+document.querySelectorAll('.cmd-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.cmd-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    render(btn.dataset.filter);
+  });
+});
+
+document.getElementById('footer-date').textContent = new Date().toISOString().split('T')[0];
+
+render('all');
+</script>
+</body>
+</html>
